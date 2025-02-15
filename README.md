@@ -21,6 +21,7 @@ Now scale the minions from another terminal using the below command.
 Now again exec into master container and verify if you see 3 minions connected. 
 ```salt-key``` Execute this command in salt master container.
 
+Now run ```salt '*' test.ping``` from salt master which will execute on all the minions
 
 Now scale down the minions using the following command. (This will scale down 3 minions to 1)
 ```docker compose scale minion1=1```
