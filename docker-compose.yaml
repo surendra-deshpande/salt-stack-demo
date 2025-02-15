@@ -1,0 +1,22 @@
+services:
+  salt:
+    build:
+      context: .
+      dockerfile: Dockerfile.master
+    container_name: salt-master
+    ports:
+      - "4506:4506"
+      - "4505:4505"
+    networks:
+      - my_network
+
+  minion1:
+    build:
+      context: .
+      dockerfile: Dockerfile.minion
+    networks:
+      - my_network
+
+
+networks:
+  my_network:

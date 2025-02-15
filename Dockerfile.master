@@ -1,0 +1,25 @@
+FROM amazonlinux:2
+
+# Install required dependencies
+RUN yum update -y
+
+
+RUN curl -fsSL -o /tmp/salt.rpm \
+    https://packages.broadcom.com/artifactory/saltproject-rpm/salt-3006.9-0.x86_64.rpm && \
+    yum install -y /tmp/salt.rpm && \
+    yum clean all
+# Download and install Salt Master from Broadcom's Artifactory
+RUN curl -fsSL -o /tmp/salt.rpm \
+    https://packages.broadcom.com/artifactory/saltproject-rpm/salt-master-3006.9-0.x86_64.rpm && \
+    yum install -y /tmp/salt.rpm && \
+    yum clean all
+
+# Expose required ports
+EXPOSE 4505 4506
+
+COPY master.conf /etc/salt/master
+
+
+COPY master-keys/ /etc/salt/pki/master/
+# # Run Salt Master
+CMD ["/usr/bin/salt-master", "-l", "info", "--log-file=/var/log/salt/master"]
